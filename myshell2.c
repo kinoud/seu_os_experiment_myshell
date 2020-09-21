@@ -230,21 +230,36 @@ void exec_comple_cmd(struct comple_ast *a){
 
 #ifdef DEBUG
     printf("-preparing commands...\n");
-
     printf("-input=");
-    if(a->inf == NULL)printf("stdin");
+#endif
+
+    if(a->inf == NULL){
+#ifdef DEBUG
+        printf("stdin");
+#endif
+    }
     else{
+#ifdef DEBUG
         printf("%s",a->inf);
+#endif
         in_handle = open(a->inf,O_RDONLY);
         if(in_handle == -1){
             fprintf(stderr, "\nopen input file '%s' failed\n",a->inf);
             return;
         }
     }
+#ifdef DEBUG
     printf("\n-output=");
-    if(a->outf == NULL)printf("stdout ");
+#endif
+    if(a->outf == NULL){
+#ifdef DEBUG
+        printf("stdout ");
+#endif
+    }
     else{
+#ifdef DEBUG
         printf("%s ",a->outf);
+#endif
         out_handle = creat(a->outf,0755);
         if(out_handle == -1){
             fprintf(stderr, "\ncreate output file '%s' failed\n",a->outf);
@@ -252,8 +267,8 @@ void exec_comple_cmd(struct comple_ast *a){
         }
     }
 
+#ifdef DEBUG
     printf("\n-piping commands=\n");
-
     print_piping_commands(a->pp);
     printf("\n-executing commands...\n");
 #endif
